@@ -21,7 +21,7 @@ class StateA : public StateMachine::State
 
     void OnUpdate() override
     {
-
+        printf("I'm on state A!\n");
     }
 };
 
@@ -39,7 +39,7 @@ class StateB : public StateMachine::State
 
     void OnUpdate() override
     {
-
+        printf("I'm on state B!\n");
     }
 };
 
@@ -69,5 +69,6 @@ int main()
         {
             test.stateMachine.forceResetState(&test.stateA);
         }
+        test.stateMachine.getCurrentState()->OnUpdate();
     }
 }

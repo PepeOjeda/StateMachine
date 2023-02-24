@@ -19,7 +19,7 @@ namespace StateMachine
         void forceSetState(State* next);
         //same as tryResetState, but does not check canEnter or canExit  
         void forceResetState(State* next);
-        const State* getCurrentState() const{return currentState;}
+        State* getCurrentState() const{return currentState;}
     };
 
 }
