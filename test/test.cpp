@@ -4,19 +4,30 @@
 
 using namespace StateMachines;
 
-class StateA : public State
+class My_State : public State<My_State>
 {
-    bool CanEnterState(const State* previousState) const override
-    {
-        return false;
-    }
+    public:
+    virtual int priority() const = 0;
 
-    void OnEnterState(State* previous) override
+    bool CanEnterState(const My_State* previousState) const override
+    {
+        return previousState->priority()<=priority();
+    }
+};
+
+class StateA : public My_State
+{
+    int priority() const override
+    {
+        return 1;
+    } 
+
+    void OnEnterState(My_State* previous) override
     {
         printf("Entering State A\n");
     }
 
-    void OnExitState(State* next) override
+    void OnExitState(My_State* next) override
     {
         printf("Exiting State A\n");
     }
@@ -27,14 +38,19 @@ class StateA : public State
     }
 };
 
-class StateB : public State
+class StateB : public My_State
 {
-    void OnEnterState(State* previous) override
+    int priority() const override
+    {
+        return 2;
+    }
+
+    void OnEnterState(My_State* previous) override
     {
         printf("Entering State B\n");
     }
 
-    void OnExitState(State* next) override
+    void OnExitState(My_State* next) override
     {
         printf("Exiting State B\n");
     }
@@ -48,7 +64,7 @@ class StateB : public State
 class TestClass
 {
     public:
-    StateMachines::StateMachine<State> stateMachine;
+    StateMachines::StateMachine<My_State> stateMachine;
     StateA stateA;
     StateB stateB;
 };
@@ -56,6 +72,7 @@ class TestClass
 int main()
 {
     TestClass test;
+    
     test.stateMachine.forceSetState(&test.stateA);
 
 
@@ -73,4 +90,5 @@ int main()
         }
         test.stateMachine.getCurrentState()->OnUpdate();
     }
+    
 }

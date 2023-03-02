@@ -25,7 +25,7 @@ namespace StateMachines
     public:
         StateMachine()
         {
-            static_assert(std::is_base_of<State, T>::value, "Invalid template argument on StateMachine<T> class. T must be a class inheriting from StateMachine::State\n");
+            static_assert(std::is_base_of<State<T>, T>::value, "Invalid template argument on StateMachine<T> class. T must be a class inheriting from StateMachine::State<T>\n");
             currentState = nullptr;
         }
 
@@ -52,7 +52,7 @@ namespace StateMachines
         {
             if(currentState != nullptr)
                 currentState->OnExitState(next);
-            State* previous = currentState;
+            T* previous = currentState;
             currentState = next;
             currentState->OnEnterState(previous);
         }
