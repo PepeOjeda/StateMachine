@@ -2,19 +2,21 @@
 #include <stdio.h>
 #include <iostream>
 
-class StateA : public StateMachine::State
+using namespace StateMachines;
+
+class StateA : public State
 {
     bool CanEnterState(const State* previousState) const override
     {
         return false;
     }
 
-    void OnEnterState(StateMachine::State* previous) override
+    void OnEnterState(State* previous) override
     {
         printf("Entering State A\n");
     }
 
-    void OnExitState(StateMachine::State* next) override
+    void OnExitState(State* next) override
     {
         printf("Exiting State A\n");
     }
@@ -25,14 +27,14 @@ class StateA : public StateMachine::State
     }
 };
 
-class StateB : public StateMachine::State
+class StateB : public State
 {
-    void OnEnterState(StateMachine::State* previous) override
+    void OnEnterState(State* previous) override
     {
         printf("Entering State B\n");
     }
 
-    void OnExitState(StateMachine::State* next) override
+    void OnExitState(State* next) override
     {
         printf("Exiting State B\n");
     }
@@ -46,7 +48,7 @@ class StateB : public StateMachine::State
 class TestClass
 {
     public:
-    StateMachine::StateMachine stateMachine;
+    StateMachines::StateMachine<State> stateMachine;
     StateA stateA;
     StateB stateB;
 };

@@ -6,7 +6,4 @@ include_directories(
     include
 )
 
-add_library(StateMachines StateMachine.cpp)
-
-add_executable(Test test.cpp StateMachine.cpp)
-#target_link_libraries(StateMachines)
+add_executable(Test test.cpp) 
