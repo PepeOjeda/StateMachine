@@ -22,9 +22,9 @@ namespace StateMachines{
     class State
     {
     public:
-        virtual State() = 0;
-        virtual State(State<T> other) = 0;
-        virtual ~State() = 0;
+        State() = default;
+        State(const State<T>& other) = default;
+        ~State() = default;
 
         virtual bool CanEnterState(const T* previousState) const {return true;}
         virtual bool CanExitState(const T* nextState) const {return true;}
